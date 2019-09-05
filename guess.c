@@ -5,19 +5,51 @@
 #include <string.h>
 #include <ctype.h>
 #include "utils.h"
+#include <time.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
-  char* name;
-  int* number;
-  printf("Enter your name:\n");
-  scanf("%s", name);
-  printf("Du %s, jag tänker på ett tal ... kan du gissa vilket?\n", name);
-  scanf("%dl", number);
+  int buf_siz = 255;
+  char buf[buf_siz];
+  char *name = ask_question_string("Vad heter du?", buf, buf_siz);
+  int number;
 
+ 
+  int rand = random() % 1024;
+  int count = 0;
 
-  int random_num =random() % 1024;
   
+  
+  printf("Du %s, jag tänker på ett tal ", name);
+  number = ask_question_int("kan du gissa vilket?");
+  
+ 
+  while (!(number == rand) && count < 15)
+    {
+       if (number > rand)
+        {
+          number = ask_question_int("För stort");
+          count++;
+        }
+      else 
+        {
+          number = ask_question_int("För stort");
+          count++;
+        }
+      
+    }
+
+  if (number == rand)
+        {
+          printf("Du gissade rätt, det tog %s %d gissningar att komma fram till %d.\n", name, count, rand);
+        }
+  else
+    {
+      printf("Du fick slut på gissningar. Talet var %d\n.", rand);
+    }
+    
+    
+  return 0;
 
 
 }
