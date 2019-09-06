@@ -22,26 +22,33 @@ int main(void)
   
   printf("Du %s, jag tänker på ett tal ", name);
   number = ask_question_int("kan du gissa vilket?");
+ 
+
   
  
   while (!(number == rand) && count < 15)
     {
-       if (number > rand)
+      if (number > rand)
         {
-          number = ask_question_int("För stort");
           count++;
+          number = ask_question_int("För stort");
+          
         }
+
       else 
         {
-          number = ask_question_int("För litet");
           count++;
+          number = ask_question_int("För litet");
+          
         }
       
     }
 
   if (number == rand)
         {
+          count++;
           printf("Du gissade rätt, det tog %s %d gissningar att komma fram till %d.\n", name, count, rand);
+         
         }
   else
     {
