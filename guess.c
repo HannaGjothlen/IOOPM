@@ -22,7 +22,8 @@ int main(void)
   
   printf("Du %s, jag tänker på ett tal ", name);
   number = ask_question_int("kan du gissa vilket?");
-  
+  printf("mitt tal %d", number);
+  printf("%d", rand);
  
   while (!(number == rand) && count < 15)
     {
@@ -33,7 +34,7 @@ int main(void)
         }
       else 
         {
-          number = ask_question_int("För stort");
+          number = ask_question_int("För litet");
           count++;
         }
       
