@@ -69,3 +69,26 @@ char *ask_question_string(char *question, char *buf, int buf_siz)
   return strdup(buf) ;
 }
 
+  void print(char *str)
+{
+  
+  int i = 0;
+ 
+while (str[i] != '\0')
+  {
+    putchar(str[i]);
+    i++;
+  }
+}
+
+
+
+void printl(char *str)
+{
+   
+     print(str);
+     print("\n");
+    
+}
+
+
