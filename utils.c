@@ -6,6 +6,54 @@
 #include <ctype.h>
 #include "utils.h"
 
+
+
+answer_t ask_question(char *question, check_func check, convert_func convert)
+{
+  int buf_siz = 255;
+  char buf[buf_siz];
+  //bool right_answer = false;
+  
+  do
+    {
+      printf("%s\n", question);
+      read_string(buf, buf_siz);
+      
+	}
+  while (!(check(buf)));
+  
+
+  return convert(buf);   
+}
+
+
+
+bool is_number(char *str)
+{
+  int n = strlen(str);
+
+  
+  for(int i=0; i<n; i++)
+    {
+      if (str[i]=='-'&& i==0 && n>1)
+	{
+	  continue;
+	}
+      if (isdigit(str[i]))
+	{
+       
+	}
+     
+      else
+	{
+	  return false;
+	}
+    }
+  return true;
+}
+
+
+
 int clear_input_buffer()
 {
   int c;
@@ -17,6 +65,8 @@ int clear_input_buffer()
       putchar('\n');
       return 0;
 }
+
+/*
 
 int ask_question_int(char *question)
 {
@@ -32,6 +82,15 @@ int ask_question_int(char *question)
   while (conversions < 1);
   return result;
 }
+
+*/
+
+int ask_question_int(char *question)
+{
+  answer_t answer = ask_question(question, is_number, (convert_func) atoi);
+  return answer.int_value; // svaret som ett heltal
+}
+
 
 
 int read_string(char *buf, int buf_siz)
@@ -60,6 +119,18 @@ int read_string(char *buf, int buf_siz)
 }
 
 
+bool not_empty(char *str)
+{
+  return strlen(str) > 0;
+}
+
+
+char *ask_question_string(char *question)
+{
+  return ask_question(question, not_empty, (convert_func) strdup).string_value;
+}
+
+/*
 char *ask_question_string(char *question, char *buf, int buf_siz)
 {
   int chars=0;
@@ -71,4 +142,28 @@ char *ask_question_string(char *question, char *buf, int buf_siz)
   while (chars < 1);
   return strdup(buf) ;
 }
+
+*/
+
+  void print(char *str)
+{
+  
+  int i = 0;
+ 
+while (str[i] != '\0')
+  {
+    putchar(str[i]);
+    i++;
+  }
+}
+
+
+
+void printl(char *str)
+{  
+     print(str);
+     print("\n"); 
+}
+
+
 
