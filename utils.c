@@ -95,13 +95,14 @@ int ask_question_int(char *question)
 
 int read_string(char *buf, int buf_siz)
 {
-  int counter = 0;
+  int counter = -1;
   int a;
   do
     {
+      counter++;
       a = getchar();
       buf[counter] = a;
-      counter++;
+     
       
     }
   while  (a !='\0' && a != '\n' && counter < (buf_siz -1));
