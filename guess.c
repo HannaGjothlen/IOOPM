@@ -14,7 +14,7 @@ int main(void)
   char *name = ask_question_string("Vad heter du?", buf, buf_siz);
   int number;
 
- 
+  srandom(time(NULL));
   int rand = random() % 1024;
   int count = 0;
 
@@ -22,7 +22,7 @@ int main(void)
   
   printf("Du %s, jag tänker på ett tal ", name);
   number = ask_question_int("kan du gissa vilket?");
- 
+  
 
   
  
