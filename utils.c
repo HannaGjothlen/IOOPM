@@ -45,15 +45,18 @@ int read_string(char *buf, int buf_siz)
       counter++;
       
     }
-  while  (a !='\0' && a != '\n' && counter <= (buf_siz -1));
+  while  (a !='\0' && a != '\n' && counter < (buf_siz -1));
 
-  if (buf[counter-1] == '\n')
+  if (buf[counter] == '\n' || counter==buf_siz-1 )
     {
-      buf[counter-1] = '\0';
-    
+      buf[counter] = '\0';
+   
     }
- 
-  return (counter-1);
+  if (counter == buf_siz-1)
+    {
+      clear_input_buffer();
+	}
+  return (counter);
 }
 
 
@@ -68,27 +71,4 @@ char *ask_question_string(char *question, char *buf, int buf_siz)
   while (chars < 1);
   return strdup(buf) ;
 }
-
-  void print(char *str)
-{
-  
-  int i = 0;
- 
-while (str[i] != '\0')
-  {
-    putchar(str[i]);
-    i++;
-  }
-}
-
-
-
-void printl(char *str)
-{
-   
-     print(str);
-     print("\n");
-    
-}
-
 
