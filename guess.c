@@ -9,9 +9,8 @@
 
 int main(void)
 {
-  int buf_siz = 255;
-  char buf[buf_siz];
-  char *name = ask_question_string("Vad heter du?", buf, buf_siz);
+ 
+  char *name = ask_question_string("Vad heter du?");
   int number;
 
   srandom(time(NULL));
@@ -22,8 +21,6 @@ int main(void)
   
   printf("Du %s, jag tänker på ett tal ", name);
   number = ask_question_int("kan du gissa vilket?");
-  
-
   
  
   while (!(number == rand) && count < 15)
