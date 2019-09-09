@@ -12,7 +12,7 @@ answer_t ask_question(char *question, check_func check, convert_func convert)
 {
   int buf_siz = 255;
   char buf[buf_siz];
-  //bool right_answer = false;
+ 
   
   do
     {
