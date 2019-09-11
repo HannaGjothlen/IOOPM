@@ -71,7 +71,7 @@ item_t input_item(void)
 
 
 
-char *magick(char array_1[], char array_2[], char array_3[])
+char *magick(char *array_1[], char *array_2[], char *array_3[])
   char buf[255];
 
 
