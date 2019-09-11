@@ -69,28 +69,39 @@ item_t input_item(void)
  return make_item(name, desc, price, shelf);
 }
 
-
-
-char *magick(char *array_1[], char *array_2[], char *array_3[])
-  char buf[255];
-
-
- int rand = random() % 3;
-//ev. lägga in varje karatär i buffern via loop.
-//kanske använda strcat
-
-/*
-int main()
-
+void list_db(item_t *items, int no_items)
 {
-  ask_question_shelf("heeeeeeej");
-  return 0;
- 
+  int i = 0;
+  while (i < no_items)
+    {
+      print("%d. ", i + 1);
+      print_item(&items[i]);
+      print("\n");
+      i++;
+    }
 }
-*/ 
+
+void edit_db(item_t *items, int size)
+{
+  int i;
+
+  while (input > size || input < 1)
+    {
+      input = ask_question_int("Vilken ska ändras? Ange siffra. ");
+      
+    }
+  int index = input - 1;
+  print_item(&items[i]);
+  items[i] = input_item();
+}
+
+
+
 
 int main(int argc, char *argv[])
 {
+  srandom(time(NULL));
+  
   char *array1[] = {"Laser", "Polka","Extra" }; // TODO: Lägg till!
   char *array2[] = { "förnicklad","smakande", "ordinär" }; // TODO: Lägg till!
   char *array3[] = { "skruvdragare", "kola", "uppgift" }; // TODO: Lägg till!
@@ -137,11 +148,9 @@ int main(int argc, char *argv[])
         ++db_siz;
       }
 
-     // Skriv ut innehållet
-     for (int i = 0; i < db_siz; ++i)
-     {
-       print_item(&db[i]);
-     }
+    list_db(db, db_siz);
+    edit_db(db, db_siz);
+    list_db(db, db_siz);
 
   }
   return 0;
