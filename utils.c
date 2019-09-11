@@ -32,23 +32,23 @@ bool is_number(char *str)
 {
   int n = strlen(str);
 
-  
+  if (n == 0)
+    {
+      return false;
+    }
   for(int i=0; i<n; i++)
     {
       if (str[i]=='-'&& i==0 && n>1)
 	{
 	  continue;
 	}
-      if (isdigit(str[i]))
-	{
-       
-	}
-     
-      else
+      if (!isdigit(str[i]))
 	{
 	  return false;
 	}
+    
     }
+  
   return true;
 }
 
