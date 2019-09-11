@@ -70,10 +70,77 @@ item_t input_item(void)
 }
 
 
+
+char *magick(char *a, char *b, char *c)
+  char buf[255];
+
+ int rand = random() % 3;
+
+
+/*
 int main()
 
 {
   ask_question_shelf("heeeeeeej");
   return 0;
-  
+ 
+}
+*/ 
+
+int main(int argc, char *argv[])
+{
+  char *array1[] = {"Laser", "Polka","Extra" }; // TODO: Lägg till!
+  char *array2[] = { "förnicklad","smakande", "ordinär" }; // TODO: Lägg till!
+  char *array3[] = { "skruvdragare", "kola", "uppgift" }; // TODO: Lägg till!
+
+  if (argc < 2)
+  {
+    printf("Usage: %s number\n", argv[0]);
+  }
+  else
+  {
+    item_t db[16]; // Array med plats för 16 varor
+    int db_siz = 0; // Antalet varor i arrayen just nu
+
+    int items = atoi(argv[1]); // Antalet varor som skall skapas
+
+    if (items > 0 && items <= 16)
+    {
+      for (int i = 0; i < items; ++i)
+      {
+        // Läs in en vara, lägg till den i arrayen, öka storleksräknaren
+        item_t item = input_item();
+        db[db_siz] = item;
+        ++db_siz;
+      }
+    }
+    else
+    {
+      puts("Sorry, must have [1-16] items in database.");
+      return 1; // Avslutar programmet!
+    }
+
+    for (int i = db_siz; i < 16; ++i)
+      {
+        char *name = magick(array1, array2, array3, 3); // TODO: Lägg till storlek
+        char *desc = magick(array1, array2, array3, 3); // TODO: Lägg till storlek
+        int price = random() % 200000;
+        char shelf[] = { random() % ('Z'-'A') + 'A',
+                         random() % 10 + '0',
+                         random() % 10 + '0',
+                         '\0' };
+        item_t item = make_item(name, desc, price, shelf);
+
+        db[db_siz] = item;
+        ++db_siz;
+      }
+
+     // Skriv ut innehållet
+     for (int i = 0; i < db_siz; ++i)
+     {
+       print_item(&db[i]);
+     }
+
+  }
+  return 0;
 }
