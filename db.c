@@ -71,11 +71,13 @@ item_t input_item(void)
 
 
 
-char *magick(char *a, char *b, char *c)
+char *magick(char array_1[], char array_2[], char array_3[])
   char buf[255];
 
- int rand = random() % 3;
 
+ int rand = random() % 3;
+//ev. lägga in varje karatär i buffern via loop.
+//kanske använda strcat
 
 /*
 int main()
