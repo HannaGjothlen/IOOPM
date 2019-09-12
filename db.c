@@ -17,7 +17,56 @@ struct item
   char *shelf; 
 };
 
+
+void print_menu()
+{
+  printf("[L]ägga till en vara\n [T]a bort en vara\n[R]edigera en vara\n Ån[g]ra senaste ändringen\n Lista [h]ela varukatalogen\n [A]vsluta\n");
+
+}
+
+bool check(char *input)
+{
+  int n = strlen(input);
+  if (n!=1)
+    {
+      return false;
+   }
+  char c =input[0];
+  char *valid = "LlTtRrGgHhAa";
+    for(int i=0; i< strlen(valid); i++)
+    {
+      if (c==valid[i])
+	{
+	  return true;
+	}
+      
+    }  
+
+  return false; 
+}
+
+
+answer_t convert_char(char *str)
+
+{
+  answer_t answer;
+  answer.int_value = str[0];
+  return answer;
+}
+
+
+char ask_question_menu()
   
+{
+    print_menu();
+    char c =ask_question("Gör ett val: ", check, (convert_char)).int_value;
+    return toupper(c);
+    
+ }
+
+
+  
+
 void print_item(item_t *merch)
   {
     printf("Name: %s\n", merch -> name);
@@ -71,12 +120,24 @@ item_t input_item(void)
 }
 
 
+
+void add_item_to_db(item_t *db, int *s)
+{
+  
+ item_t item  = input_item();
+ db[*s] =item;
+ *s= *s+1;
+
+ return;
+}
+
+
 void list_db(item_t *items, int no_items)
 {
   int i = 0;
   while (i < no_items)
     {
-      //char* item_name =(item -> name);
+      
       printf("%d. ", i + 1);
       printf("%s\n", items[i].name);
       
@@ -91,17 +152,35 @@ void edit_db(item_t *items, int size)
 
 
   do {
-    input = ask_question_int("Vilken ska ändras? Ange siffra. ");
+    input = ask_question_int("Vilken vara ska ändras? Ange siffra. ");
     
   }
 
   while (input > size || input < 1);
   
   int index = input - 1;
-  print_item(&items[input]);
+  print_item(&items[index]);
   items[index] = input_item();
 }
 
+
+
+void remove_item_from_db (item_t *item, int size)
+
+{
+  int input;
+  int db_siz = size;
+  db
+     
+  list_db(item, size)
+
+    do {
+      input= ask_questions_inte("Vilken vara vill du radera?");
+    }
+    while (input > size ||input<1);
+}
+
+  
 
 char *magick(char *array_1[], char *array_2[], char *array_3[], int siz)
 {
