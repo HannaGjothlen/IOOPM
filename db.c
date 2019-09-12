@@ -5,6 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "utils.h"
+#include <time.h>
 
 typedef struct item item_t;
 
@@ -69,32 +70,76 @@ item_t input_item(void)
  return make_item(name, desc, price, shelf);
 }
 
+
 void list_db(item_t *items, int no_items)
 {
   int i = 0;
   while (i < no_items)
     {
-      print("%d. ", i + 1);
-      print_item(&items[i]);
-      print("\n");
+      //char* item_name =(item -> name);
+      printf("%d. ", i + 1);
+      printf("%s\n", items[i].name);
+      
       i++;
     }
 }
 
+
 void edit_db(item_t *items, int size)
 {
-  int i;
+  int input;
 
-  while (input > size || input < 1)
-    {
-      input = ask_question_int("Vilken ska ändras? Ange siffra. ");
-      
-    }
+
+  do {
+    input = ask_question_int("Vilken ska ändras? Ange siffra. ");
+    
+  }
+
+  while (input > size || input < 1);
+  
   int index = input - 1;
-  print_item(&items[i]);
-  items[i] = input_item();
+  print_item(&items[input]);
+  items[index] = input_item();
 }
 
+
+char *magick(char *array_1[], char *array_2[], char *array_3[], int siz)
+{
+  char buf[255];
+  char *word_1 = array_1[rand() % siz];
+  char *word_2 = array_2[rand() % siz];
+  char *word_3 = array_3[rand() % siz];
+
+  int counter = 0;
+  int end =  strlen(word_1);
+  for(; counter <  end ; counter++)
+    {
+      buf[counter] = *word_1;
+      word_1++;
+    }
+  buf[counter++]= '-';
+  end += strlen(word_2)+1;
+
+  for(; counter < end ; counter++)
+    {
+      buf[counter] = *word_2;
+      word_2++;
+    }
+  buf[counter++]= ' ';
+
+  end += strlen(word_3)+1;
+  for(; counter < end ; counter++)
+    {
+      buf[counter] = *word_3;
+      word_3++;
+    }
+  buf[counter++]= '\0';
+  return strdup(buf);
+
+}
+    
+ 
+ 
 
 
 
@@ -151,7 +196,7 @@ int main(int argc, char *argv[])
     list_db(db, db_siz);
     edit_db(db, db_siz);
     list_db(db, db_siz);
-
+    
   }
   return 0;
 }
