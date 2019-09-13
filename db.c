@@ -123,10 +123,19 @@ item_t input_item(void)
 
 void add_item_to_db(item_t *db, int *s)
 {
-  
- item_t item  = input_item();
- db[*s] =item;
- *s= *s+1;
+
+  if(*s < 16)
+    {
+      item_t item  = input_item();
+      db[*s] = item;
+      *s= *s+1;
+    }
+  else
+    {
+      printf("No\n");
+      
+    }
+ 
 
  return;
 }
@@ -165,20 +174,39 @@ void edit_db(item_t *items, int size)
 
 
 
-void remove_item_from_db (item_t *item, int size)
+void remove_item_from_db (item_t *item, int *size)
 
 {
   int input;
-  int db_siz = size;
-  db
+  
+ 
      
-  list_db(item, size)
+  list_db(item, *size);
 
     do {
-      input= ask_questions_inte("Vilken vara vill du radera?");
+      input= ask_question_int("Vilken vara vill du radera?");
+      
     }
-    while (input > size ||input<1);
+    while (input > *size || input < 1);
+
+    input--;
+    
+
+  while(input < *size)
+    {
+      
+    item[input] = item[input + 1];
+    input++;
+  }
+  
+  *size=*size-1;
+  return;
+  
+  
+  
+  
 }
+
 
   
 
@@ -217,7 +245,40 @@ char *magick(char *array_1[], char *array_2[], char *array_3[], int siz)
 
 }
     
- 
+
+
+void event_loop(item_t *db, int *db_siz)
+{
+  while (true)
+    {
+      char c = ask_question_menu();
+
+      if('L' == c)
+        {
+          add_item_to_db(db, db_siz);
+        }
+      if ('T' == c)
+        {
+          remove_item_from_db(db, db_siz);
+        }
+      if ('R' == c)
+        {
+          edit_db(db, *db_siz);
+        }
+      if ('G' == c)
+        {
+          printf("Not yet impkemented!");
+        }
+      if ('H' == c)
+        {
+          list_db(db, *db_siz);
+        }
+      if ('A' == c)
+        {
+          break;
+        }
+    }
+}
  
 
 
@@ -272,9 +333,7 @@ int main(int argc, char *argv[])
         ++db_siz;
       }
 
-    list_db(db, db_siz);
-    edit_db(db, db_siz);
-    list_db(db, db_siz);
+    event_loop(db, &db_siz);
     
   }
   return 0;
